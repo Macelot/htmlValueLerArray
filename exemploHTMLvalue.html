@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<script language="JavaScript">
+	
+	var carros = [];
+	
+	var meuCarro = new Object();
+	meuCarro.marcaModelo = "FORD - Mustang";
+	meuCarro.ano = 1969;
+	meuCarro.preco = 200000.00;
+	
+	carros.push(meuCarro);
+	
+	meuCarro = new Object();
+	meuCarro.marcaModelo = "AUDI - TT";
+	meuCarro.ano = 1998;
+	meuCarro.preco = 100000.00;
+	
+	carros.push(meuCarro);
+	
+	meuCarro = new Object();
+	meuCarro.marcaModelo = "GM - Camaro";
+	meuCarro.ano = 1966;
+	meuCarro.preco = 90000.00;
+	
+	carros.push(meuCarro);
+
+	function mostrar(){
+		console.table(carros);
+	}
+	
+	function adicionar(){
+		meuCarro = new Object();
+		var marca, modelo, ano, preco;
+		marca = document.getElementById('exampleFormControlSelect1').value;
+		modelo = document.getElementById('modeloInput').value;
+		ano = document.getElementById('anoInput').value;
+		preco = document.getElementById('precoInput').value;
+		
+		meuCarro.marcaModelo = marca+" - "+modelo;
+		meuCarro.ano = parseInt(ano,10);
+		meuCarro.preco = parseFloat(preco);
+	
+		carros.push(meuCarro);	
+	}
+	
+	function ler(){
+		var idAtual = document.getElementById('idArray').value;
+		var marca, modelo, ano, preco;
+		
+		if (idAtual==""){
+			//alert('id nulo');
+			//vamos pegar o indice ZERO
+			meuCarro = new Object();
+			meuCarro = carros[0];
+			
+			var marcaModelo = meuCarro.marcaModelo.split(" - ");
+			marca = marcaModelo[0];
+			modelo = marcaModelo[1];
+			ano = meuCarro.ano;
+			preco = meuCarro.preco;
+			
+			console.log("marca "+marca);
+			console.log("modelo "+modelo);
+			console.log("ano "+ano);
+			console.log("preco "+preco);
+			
+			document.getElementById('exampleFormControlSelect1').value=marca;
+			//document.getElementById('exampleFormControlSelect1').options.selectedIndex = marca;
+			document.getElementById('modeloInput').value=modelo;
+			document.getElementById('anoInput').value=ano;
+			document.getElementById('precoInput').value=preco;
+			
+			//já vamos colocar o id para depois saber que devemos avançar
+			document.getElementById('idArray').value=0;
+			
+		}else{
+			idAtual++;
+			alert('id '+idAtual);
+			if(idAtual>=(carros.length)){
+				alert('Fim do array');
+				return;
+			}
+			meuCarro = new Object();
+			meuCarro = carros[idAtual];
+			
+			var marcaModelo = meuCarro.marcaModelo.split(" - ");
+			marca = marcaModelo[0];
+			modelo = marcaModelo[1];
+			ano = meuCarro.ano;
+			preco = meuCarro.preco;
+			
+			console.log("marca "+marca);
+			console.log("modelo "+modelo);
+			console.log("ano "+ano);
+			console.log("preco "+preco);
+			
+			document.getElementById('exampleFormControlSelect1').value=marca;
+			//document.getElementById('exampleFormControlSelect1').options.selectedIndex = marca;
+			document.getElementById('modeloInput').value=modelo;
+			document.getElementById('anoInput').value=ano;
+			document.getElementById('precoInput').value=preco;
+			
+			//já vamos colocar o id para depois saber que devemos avançar
+			document.getElementById('idArray').value=idAtual;
+			
+			
+		}
+		
+			
+	}
+	
+
+</script>
+
+<div class="container">
+
+	<div class="form-group col-md-12">
+		<button type="button" onclick="mostrar()" class="btn btn-primary">Mostrar Tudo</button>
+	</div> 
+
+	<form>
+		<input id="idArray" type="text" value=""/>
+		<div class="form-group col-md-12">
+			<label for="exampleFormControlSelect1">Marca</label>
+			<select class="form-control" id="exampleFormControlSelect1">
+			  <option value='AUDI'>AUDI</option>
+			  <option value='GM'>GM</option>
+			  <option value='BMW'>BMW</option>
+			  <option value='FERRARI'>FERRARI</option>
+			  <option value='FORD'>FORD</option>
+			  <option value='PORSCHE'>PORSCHE</option>
+			</select>
+		</div>  
+		
+		<div class="form-group col-md-12">
+			<label for="modeloInput">Modelo</label>
+			<input type="text" class="form-control" id="modeloInput">
+		</div>
+		
+		<div class="form-group col-md-12">
+			<label for="AnoInput">Ano</label>
+		  <input type="number" value="2020" class="form-control" id="anoInput" min="1886" max="2021">
+		</div>
+		
+		<div class="form-group col-md-12">
+			<label for="precoInput">Preço</label>
+		  <input type="number" value="10000" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control currency" id ="precoInput">
+		</div>
+	</form>
+	<div class="form-group col-md-12">
+		<button type="button" onclick="adicionar()" class="btn btn-primary">Adicionar</button>
+	</div> 	
+	
+	<div class="form-group col-md-12">
+		<button type="button" onclick="ler()" class="btn btn-primary">Ler Array</button>
+	</div> 
+
+</div>
+
+</body>
+</html>
